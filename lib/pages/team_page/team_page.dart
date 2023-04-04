@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:website/pages/widgets/custom_drawer.dart';
 
 import '../../models/team_member_model.dart';
 import '../navigation/navigation.dart';
+import '../widgets/footer_widget.dart';
 
 class TeamPage extends StatelessWidget {
   const TeamPage({Key? key}) : super(key: key);
@@ -19,7 +21,7 @@ class TeamPage extends StatelessWidget {
                 actions: [
                   Builder(
                     builder: (context) => IconButton(
-                      padding: EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.only(right: 10),
                       icon: const Icon(
                         Icons.menu,
                         color: Colors.black,
@@ -33,48 +35,7 @@ class TeamPage extends StatelessWidget {
                 ],
               ),
         extendBodyBehindAppBar: true,
-        endDrawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text(
-                  'GDG Events',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-              ListTile(
-                  leading: Icon(Icons.home), title: Text('Home'), onTap: null),
-              ListTile(
-                leading: Icon(Icons.people),
-                title: Text('Event Page'),
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => EventPage()),
-                  // );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.schedule),
-                title: Text('Registration'),
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => RegistrationPage()),
-                  // );
-                  // Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        ),
+        endDrawer: customDrawer(),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +43,7 @@ class TeamPage extends StatelessWidget {
               constraints.maxWidth > 600
                   ? SizedBox(
                       height: 300,
-                      child: Navigation(),
+                      child: Navigation(currentPage: 'TeamPage',),
                     )
                   : Container(
                       height: 300,
@@ -175,6 +136,8 @@ class TeamPage extends StatelessWidget {
                     ),
                   ],
                   context: context),
+              const SizedBox(height: 20),
+              const FooterWidget()
             ],
           ),
         ),

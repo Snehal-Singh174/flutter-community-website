@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:website/pages/widgets/custom_drawer.dart';
 
 import '../../models/organizer_model.dart';
 import '../navigation/navigation.dart';
@@ -33,6 +34,8 @@ List<Organizer> organizerList = [
 ];
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -60,55 +63,14 @@ class HomePage extends StatelessWidget {
                 ],
               ),
         extendBodyBehindAppBar: true,
-        endDrawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text(
-                  'GDG Events',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-              ListTile(
-                  leading: Icon(Icons.home), title: Text('Home'), onTap: null),
-              ListTile(
-                leading: Icon(Icons.people),
-                title: Text('Event Page'),
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => EventPage()),
-                  // );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.schedule),
-                title: Text('Registration'),
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => RegistrationPage()),
-                  // );
-                  // Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        ),
+        endDrawer: customDrawer(),
         body: SingleChildScrollView(
           child: Column(
             children: [
               constraints.maxWidth > 600
                   ? SizedBox(
                       height: 300,
-                      child: Navigation(),
+                      child: Navigation(currentPage: 'HomePage',),
                     )
                   : Container(
                       height: 300,
@@ -129,16 +91,16 @@ class HomePage extends StatelessWidget {
                             fontWeight: FontWeight.bold, fontSize: 25),
                       ),
                     ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               AboutSection(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               GallerySection(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TechnologyList(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               OrganizerList(organizers: organizerList),
-              SizedBox(height: 20),
-              FooterWidget()
+              const SizedBox(height: 20),
+              const FooterWidget()
             ],
           ),
         ),

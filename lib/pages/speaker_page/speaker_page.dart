@@ -1,72 +1,127 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:website/pages/widgets/custom_drawer.dart';
 
 import '../../models/speaker_model.dart';
+import '../navigation/navigation.dart';
+import '../widgets/footer_widget.dart';
+
+List<Speaker> speakers = [
+  Speaker(
+    name: 'John Doe',
+    imageUrl: 'https://example.com/speaker1.jpg',
+    bio: 'John is a software engineer with 10 years of experience...',
+    twitterUrl: 'https://twitter.com/johndoe',
+    linkedinUrl: 'https://www.linkedin.com/in/johndoe',
+    githubUrl: 'https://github.com/johndoe',
+  ),
+  Speaker(
+    name: 'Jane Smith',
+    imageUrl: 'https://example.com/speaker2.jpg',
+    bio: 'Jane is a UX designer with 5 years of experience...',
+    twitterUrl: 'https://twitter.com/janesmith',
+    linkedinUrl: 'https://www.linkedin.com/in/janesmith',
+    githubUrl: 'https://github.com/janesmith',
+  ),
+  Speaker(
+    name: 'Jane Smith',
+    imageUrl: 'https://example.com/speaker2.jpg',
+    bio: 'Jane is a UX designer with 5 years of experience...',
+    twitterUrl: 'https://twitter.com/janesmith',
+    linkedinUrl: 'https://www.linkedin.com/in/janesmith',
+    githubUrl: 'https://github.com/janesmith',
+  ),
+  // Add more speakers here...
+];
 
 class SpeakerPage extends StatelessWidget {
-  List<Speaker> speakers = [
-    Speaker(
-      name: 'John Doe',
-      imageUrl: 'https://example.com/speaker1.jpg',
-      bio: 'John is a software engineer with 10 years of experience...',
-      twitterUrl: 'https://twitter.com/johndoe',
-      linkedinUrl: 'https://www.linkedin.com/in/johndoe',
-      githubUrl: 'https://github.com/johndoe',
-    ),
-    Speaker(
-      name: 'Jane Smith',
-      imageUrl: 'https://example.com/speaker2.jpg',
-      bio: 'Jane is a UX designer with 5 years of experience...',
-      twitterUrl: 'https://twitter.com/janesmith',
-      linkedinUrl: 'https://www.linkedin.com/in/janesmith',
-      githubUrl: 'https://github.com/janesmith',
-    ),
-    Speaker(
-      name: 'Jane Smith',
-      imageUrl: 'https://example.com/speaker2.jpg',
-      bio: 'Jane is a UX designer with 5 years of experience...',
-      twitterUrl: 'https://twitter.com/janesmith',
-      linkedinUrl: 'https://www.linkedin.com/in/janesmith',
-      githubUrl: 'https://github.com/janesmith',
-    ),
-    // Add more speakers here...
-  ];
+  const SpeakerPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Speakers'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Speakers',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Scaffold(
+          appBar: constraints.maxWidth > 600
+              ? null
+              : AppBar(
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  actions: [
+                    Builder(
+                      builder: (context) => IconButton(
+                        padding: EdgeInsets.only(right: 10),
+                        icon: const Icon(
+                          Icons.menu,
+                          color: Colors.black,
+                          size: 35,
+                        ),
+                        onPressed: () {
+                          Scaffold.of(context).openEndDrawer();
+                        },
+                      ),
                     ),
+                  ],
+                ),
+          extendBodyBehindAppBar: true,
+          endDrawer: customDrawer(),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                constraints.maxWidth > 600
+                    ? SizedBox(
+                  height: 300,
+                  child: Navigation(currentPage: 'SpeakerPage',),
+                )
+                    : Container(
+                  height: 300,
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.only(top: 20, left: 10),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(
+                          'https://images.unsplash.com/photo-1531844251246-9a1bfaae09fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGNvbW11bml0eXxlbnwwfHwwfHw%3D&w=1000&q=80',
+                        ),
+                        fit: BoxFit.cover,
+                        opacity: 0.6),
                   ),
-                  SizedBox(height: 16.0),
-                  Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nibh id libero auctor commodo. Praesent molestie vulputate eros vitae mollis. Etiam sit amet lobortis enim, quis euismod ipsum.',
-                    style: TextStyle(fontSize: 16.0),
+                  child: Text(
+                    'WTM SURAT',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 25),
                   ),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Speakers',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+                      Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nibh id libero auctor commodo. Praesent molestie vulputate eros vitae mollis. Etiam sit amet lobortis enim, quis euismod ipsum.',
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
+                ),
+                _buildSpeakerCard(speakers: speakers, context: context),
+                const SizedBox(height: 20),
+                const FooterWidget()
+              ],
             ),
-            _buildSpeakerCard(speakers: speakers, context: context)
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 

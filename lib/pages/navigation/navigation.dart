@@ -6,13 +6,17 @@ import 'package:website/pages/team_page/team_page.dart';
 import '../home_page/home_page.dart';
 
 class Navigation extends StatelessWidget {
+  final String currentPage;
+
+  Navigation({required this.currentPage});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 300,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(top: 15),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.only(top: 15),
+      decoration: const BoxDecoration(
         image: DecorationImage(
             image: NetworkImage(
               'https://images.unsplash.com/photo-1531844251246-9a1bfaae09fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGNvbW11bml0eXxlbnwwfHwwfHw%3D&w=1000&q=80',
@@ -25,13 +29,15 @@ class Navigation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
-            child: Text(
+            onPressed: currentPage != 'HomePage'
+                ? () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  }
+                : null,
+            child: const Text(
               'Home',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -40,13 +46,15 @@ class Navigation extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SpeakerPage()),
-              );
-            },
-            child: Text(
+            onPressed: currentPage != 'SpeakerPage'
+                ? () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SpeakerPage()),
+                    );
+                  }
+                : null,
+            child: const Text(
               'Speakers',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -55,13 +63,15 @@ class Navigation extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SchedulePage()),
-              );
-            },
-            child: Text(
+            onPressed: currentPage != 'SchedulePage'
+                ? () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SchedulePage()),
+                    );
+                  }
+                : null,
+            child: const Text(
               'Schedule',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -70,13 +80,15 @@ class Navigation extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TeamPage()),
-              );
-            },
-            child: Text(
+            onPressed: currentPage != 'TeamPage'
+                ? () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TeamPage()),
+                    );
+                  }
+                : null,
+            child: const Text(
               'Team',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
